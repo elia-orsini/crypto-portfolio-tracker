@@ -12,7 +12,7 @@
         let arrayPrices = n.split(' ');
         arrayPrices = arrayPrices.slice(0, arrayPrices.length-1);
         const floatArray = arrayPrices.map(function(value) {
-            return parseFloat(value, 10);
+            return parseFloat(value);
         })
 
         const times = '{{ dailyTimes }}';
