@@ -47,6 +47,8 @@ def get_current_balance():
     portfolio = resp.json()["result"]
     portfolio_tickers = {}
     for asset in portfolio.keys():
+        if asset == "ZUSD" or asset == "ZEUR":
+            continue
         quantity = float(portfolio[asset])
         if quantity > 0.001:
             ticker = asset
