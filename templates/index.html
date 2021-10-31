@@ -8,14 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://github.com/chartjs/Chart.js/blob/master/docs/scripts/utils.js"></script>
     <script>
-        const n = '{{ dailyValues }}';
+        const n = '{{ weeklyValues }}';
         let arrayPrices = n.split(' ');
         arrayPrices = arrayPrices.slice(0, arrayPrices.length-1);
         const floatArray = arrayPrices.map(function(value) {
             return parseFloat(value);
         })
 
-        const times = '{{ dailyTimes }}';
+        const times = '{{ weeklyTimes }}';
         const arrayTimes = times.split(' ');
 
         var ctx = document.getElementById('myChart').getContext('2d');
