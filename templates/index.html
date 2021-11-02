@@ -2,7 +2,6 @@
 <head>
 </head>
 <body>
-    <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
@@ -12,9 +11,33 @@
     </ul>
     {% endif %}
     {% endwith %}
+
+    <hr>
+
+    {% block content %}
+    <h1>Add address</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32) }}
+            {% for error in form.address.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.chain.label }}<br>
+            {{ form.chain }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    {% endblock %}
+
     <div>
         <canvas id="myChart" width="500px" height="200px"></canvas>
     </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://github.com/chartjs/Chart.js/blob/master/docs/scripts/utils.js"></script>
     <script>
