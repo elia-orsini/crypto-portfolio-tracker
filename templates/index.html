@@ -2,6 +2,16 @@
 <head>
 </head>
 <body>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <div>
         <canvas id="myChart" width="500px" height="200px"></canvas>
     </div>
