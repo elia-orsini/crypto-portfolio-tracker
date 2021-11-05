@@ -1,42 +1,53 @@
-<!DOCTYPE HTML>
-<head>
-</head>
-<body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
 
-    <hr>
+{%- extends "bootstrap/base.html" %}
 
-    {% block content %}
-    <h1>Add address</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.address.label }}<br>
-            {{ form.address(size=32) }}
-            {% for error in form.address.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+{% block body %}
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
             {% endfor %}
-        </p>
-        <p>
-            {{ form.chain.label }}<br>
-            {{ form.chain }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% endblock %}
+        </ul>
+        {% endif %}
+        {% endwith %}
 
-    <div>
-        <canvas id="myChart" width="500px" height="200px"></canvas>
+        <hr>
+
+        {% block content %}
+            <h1>Add address</h1>
+            <div class="mb-3 row position-absolute top-0 start-0 translate-middle">
+                <form action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.address.label(class="form-label") }}<br>
+                        {{ form.address(class="form-control", placeholder="0x734DFD7d5702634cF1C87f4A6Bc8557C1599150A") }}
+
+                        {% for error in form.address.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </div>
+                    <p>
+                        {{ form.chain.label(class="form-label") }}<br>
+                        {{ form.chain(class="form-select") }}
+                    </p>
+                        {{ form.submit(class="btn btn-primary") }}
+                    </p>
+                </form>
+            </div>
+
+            <div>
+                <canvas id="myChart" width="500px" height="200px"></canvas>
+            </div>
+
+            <div>
+                <canvas id="myPieChart" width="500px" height="200px"></canvas>
+            </div>
+
+        {% endblock %}
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://github.com/chartjs/Chart.js/blob/master/docs/scripts/utils.js"></script>
@@ -76,10 +87,50 @@
                     y: {
                         display: true
                     }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart'
+                    }
                 }
             }
         });
+
+        const data = {
+          labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+          datasets: [
+            {
+              label: 'Dataset 1',
+              data: Utils.numbers(NUMBER_CFG),
+              backgroundColor: Object.values(Utils.CHART_COLORS),
+            }
+          ]
+        };
+
+        var pieChart = document.getElementById('myPieChart').getContext('2d');
+        var myPieChart = new Chart(pieChart, {
+            type: 'pie',
+              data: data,
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Chart.js Pie Chart'
+                  }
+                }
+              },
+        };
     </script>
 
-</body>
-</html>
+{% endblock %}
+
+
+
