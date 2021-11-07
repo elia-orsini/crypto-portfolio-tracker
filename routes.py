@@ -17,10 +17,7 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		flash('ADDRESS: {}, CHAIN ID={}'.format(form.address.data, form.chain.data))
-		try:
-			(portfolio_value,times) = get_chartdata(form.address.data, form.chain.data)
-		except:
-			return render_template('login.html', title='Sign In', form=form)
+		(portfolio_value,times) = get_chartdata(form.address.data, form.chain.data)
 		return render_template("index.html", weeklyValues=portfolio_value, weeklyTimes=times, form=form)
 	return render_template('login.html', title='Sign In', form=form)
 
