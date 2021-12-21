@@ -123,9 +123,6 @@ def assemble_timed_data():
     return traded_values, updated_times
 
 
-# TIME_FRAME = time.time() - 86400  # DAY IS 86400; WEEK IS 604800
-# daily_values, daily_times = assemble_timed_data()
-
 TIME_FRAME = time.time() - 604800  # DAY IS 86400; WEEK IS 604800
 weekly_values, weekly_times = assemble_timed_data()
 
